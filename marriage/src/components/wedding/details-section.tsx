@@ -4,24 +4,25 @@ import { MapPin, Clock, Utensils } from "lucide-react"
 const details = [
   {
     icon: MapPin,
-    title: "Ceremony",
-    line1: "The Garden Estate",
-    line2: "142 Rosewood Lane, Napa Valley, CA",
-    line3: "Outdoor ceremony begins at 4:00 PM",
+    title: "Ceremonia",
+    line1: "Iglesia Nazareno Fuende Vida",
+    line2: "Perez Quiñonez oe8-30, Quito Ecuador",
+    line3: "La ceremonia comienza a las 8:30 AM",
   },
-  {
+    {
     icon: Clock,
-    title: "Cocktail Hour",
+    title: "Hora del Brindis",
     line1: "The Terrace Lounge",
     line2: "Drinks and hors d'oeuvres",
-    line3: "5:00 PM — 6:00 PM",
+    line3: "9:00 AM — 12:00 PM",
   },
+
   {
     icon: Utensils,
-    title: "Reception",
-    line1: "The Grand Ballroom",
-    line2: "Dinner, dancing, and celebration",
-    line3: "6:00 PM onwards",
+    title: "Recepción",
+    line1: "Coliseo de la iglesia ",
+    line2: "Cena y Celebración",
+    line3: "1:00 PM en adelante",
   },
 ]
 
@@ -31,10 +32,10 @@ export function DetailsSection() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="text-center">
           <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-            When & Where
+            Cuándo y dónde
           </p>
           <h2 className="mt-3 font-serif text-4xl text-foreground md:text-5xl text-balance">
-            Wedding Details
+            Detalles de la boda
           </h2>
         </div>
 

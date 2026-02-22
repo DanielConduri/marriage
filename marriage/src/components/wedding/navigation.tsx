@@ -4,10 +4,10 @@ import { useState } from "react"
 import { Menu, X } from "lucide-react"
 
 const navLinks = [
-  { label: "Our Story", href: "#story" },
-  { label: "Details", href: "#details" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "RSVP", href: "#rsvp" },
+  { label: "Nuestra Historia", href: "#story" },
+  { label: "Detalles", href: "#details" },
+  { label: "Galería", href: "#gallery" },
+  { label: "Registrarse", href: "#rsvp" },
 ]
 
 export function Navigation() {

@@ -2,18 +2,21 @@ import Image from "next/image"
 
 const timeline = [
   {
-    date: "June 2019",
-    title: "The First Meeting",
+    date: "Mayo 2021",
+    title: "El primer encuentro",
     description:
-      "We met at a mutual friend's dinner party. What started as a conversation over wine turned into hours of laughter and the beginning of something beautiful.",
+      `Nos conocimos en una reunión de jóvenes de la iglesia. 
+      Ambos estábamos un poco nerviosos, y la música fue el medio por el cual logramos conectar.
+      Fue el comienzo de una hermosa amistad que rápidamente se convirtió en un propósito.
+      `,
     image: "/images/marriage1.jpeg",
     imageAlt: "Emma and James walking together in a park during golden hour",
   },
   {
-    date: "December 2024",
-    title: "The Proposal",
+    date: "Febrero 2026",
+    title: "La propuesta",
     description:
-      "On a snowy evening under the twinkling lights of the city, James got down on one knee and asked the question that changed everything forever.",
+      "En una tarde nevada bajo las luces centelleantes de la ciudad, Nelly se arrodilló e hizo la pregunta que lo cambió todo para siempre.",
     image: "/images/marriage1.jpeg",
     imageAlt: "Romantic proposal scene with warm lighting and candles",
   },
@@ -25,10 +28,10 @@ export function OurStory() {
       <div className="mx-auto max-w-5xl px-6">
         <div className="text-center">
           <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-            How it all began
+            Cómo empezó todo
           </p>
           <h2 className="mt-3 font-serif text-4xl text-foreground md:text-5xl text-balance">
-            Our Story
+            Nuestra historia
           </h2>
         </div>
 

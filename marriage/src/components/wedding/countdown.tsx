@@ -2,11 +2,15 @@
 
 import { useEffect, useState } from "react"
 
-const WEDDING_DATE = new Date("2026-09-14T16:00:00")
+const TARGET_DATE = new Date("2026-03-15T09:00:00")
 
 function calcTimeLeft() {
-  const diff = WEDDING_DATE.getTime() - Date.now()
-  if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 }
+  const diff = TARGET_DATE.getTime() - Date.now()
+
+  if (diff <= 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 }
+  }
+
   return {
     days: Math.floor(diff / (1000 * 60 * 60 * 24)),
     hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
@@ -24,17 +28,17 @@ export function Countdown() {
   }, [])
 
   const units = [
-    { label: "Days", value: time.days },
-    { label: "Hours", value: time.hours },
-    { label: "Minutes", value: time.minutes },
-    { label: "Seconds", value: time.seconds },
+    { label: "Días", value: time.days },
+    { label: "Horas", value: time.hours },
+    { label: "Minutos", value: time.minutes },
+    { label: "Segundos", value: time.seconds },
   ]
 
   return (
     <section className="bg-card py-16">
       <div className="mx-auto max-w-4xl px-6 text-center">
         <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-          Counting down to our special day
+          Contando los días para nuestro día especial
         </p>
         <div className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">
           {units.map((u) => (
