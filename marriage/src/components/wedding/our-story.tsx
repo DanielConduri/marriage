@@ -9,7 +9,7 @@ const timeline = [
       Ambos estábamos un poco nerviosos, y la música fue el medio por el cual logramos conectar.
       Fue el comienzo de una hermosa amistad que rápidamente se convirtió en un propósito.
       `,
-    image: "/images/marriage1.jpeg",
+    image: "/images/marriage4.jpeg",
     imageAlt: "Emma and James walking together in a park during golden hour",
   },
   {
@@ -60,7 +60,7 @@ export function OurStory() {
                 <h3 className="mt-2 font-serif text-2xl text-foreground md:text-3xl">
                   {item.title}
                 </h3>
-                <p className="mt-4 leading-relaxed text-muted-foreground">
+                <p className="mt-4 leading-relaxed text-muted-foreground text-justify">
                   {item.description}
                 </p>
               </div>
