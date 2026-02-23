@@ -38,7 +38,7 @@ export function GallerySection() {
       <div className="mx-auto max-w-6xl px-6">
 
         <div className="text-center">
-          <h2 className="font-serif text-4xl md:text-5xl">Gallery</h2>
+          <h2 className="font-serif text-4xl md:text-5xl">Galería</h2>
         </div>
 
         <div className="mt-14 space-y-10">

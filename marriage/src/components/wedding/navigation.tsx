@@ -4,9 +4,9 @@ import { useState } from "react"
 import { Menu, X } from "lucide-react"
 
 const navLinks = [
-  { label: "Nuestra Historia", href: "#story" },
+  // { label: "Nuestra Historia", href: "#story" },
   { label: "Detalles", href: "#details" },
-  { label: "Galería", href: "#gallery" },
+  // { label: "Galería", href: "#gallery" },
   { label: "Registrarse", href: "#rsvp" },
 ]
 

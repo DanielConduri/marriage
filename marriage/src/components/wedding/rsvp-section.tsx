@@ -5,10 +5,48 @@ import { useState } from "react"
 export function RsvpSection() {
   const [submitted, setSubmitted] = useState(false)
 
+  const [cedulaError, setCedulaError] = useState("")
+
+  function validarCedulaEcuador(cedula: string) {
+  if (!/^\d{10}$/.test(cedula)) return false
+
+  const provincia = parseInt(cedula.substring(0, 2), 10)
+  const tercerDigito = parseInt(cedula[2], 10)
+
+  if (provincia < 1 || provincia > 24) return false
+  if (tercerDigito >= 6) return false
+
+  const coeficientes = [2,1,2,1,2,1,2,1,2]
+  const digitos = cedula.split("").map(Number)
+
+  let suma = 0
+  for (let i = 0; i < 9; i++) {
+    let resultado = digitos[i] * coeficientes[i]
+    if (resultado > 9) resultado -= 9
+    suma += resultado
+  }
+
+  const digitoVerificador = (10 - (suma % 10)) % 10
+
+  return digitoVerificador === digitos[9]
+}
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    //setSubmitted(true)
+
+    const formData = new FormData(e.currentTarget)
+    const cedula = formData.get("cedula") as string
+
+    if (!validarCedulaEcuador(cedula)) {
+      setCedulaError("La cédula ingresada no es válida")
+      return
+    }
+
+    setCedulaError("")
     setSubmitted(true)
   }
+  
 
   return (
     <section id="rsvp" className="bg-card py-20 md:py-28">
@@ -56,19 +94,35 @@ export function RsvpSection() {
                   htmlFor="lastName"
                   className="text-xs uppercase tracking-[0.15em] text-muted-foreground"
                 >
-                  Apellido
+                  Cédula
                 </label>
                 <input
-                  id="lastName"
-                  name="lastName"
+                  id="cedula"
+                  name="cedula"
                   type="text"
+                  inputMode="numeric"
+                  maxLength={10}
                   required
-                  className="border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors focus:border-accent"
+                  onChange={(e) => {
+                    e.target.value = e.target.value.replace(/\D/g, "").slice(0, 10)
+                    if (cedulaError) setCedulaError("")
+                  }}
+                  className={`border px-4 py-3 text-sm outline-none transition-colors ${
+                    cedulaError
+                      ? "border-red-500 bg-red-50"
+                      : "border-border bg-background focus:border-accent"
+                  }`}
                 />
+
+                {cedulaError && (
+                <span className="text-xs text-red-500">
+                  {cedulaError}
+                </span>
+              )}
               </div>
             </div>
 
-            <div className="flex flex-col gap-1.5">
+            {/* <div className="flex flex-col gap-1.5">
               <label
                 htmlFor="email"
                 className="text-xs uppercase tracking-[0.15em] text-muted-foreground"
@@ -82,9 +136,9 @@ export function RsvpSection() {
                 required
                 className="border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors focus:border-accent"
               />
-            </div>
+            </div> */}
 
-            <div className="flex flex-col gap-1.5">
+            {/* <div className="flex flex-col gap-1.5">
               <label
                 htmlFor="attendance"
                 className="text-xs uppercase tracking-[0.15em] text-muted-foreground"
@@ -99,9 +153,9 @@ export function RsvpSection() {
               >
                 <option value="">Seleccione una opción</option>
                 <option value="attending">Asistirá con alegría</option>
-                {/* <option value="not-attending">Declina respetuosamente</option> */}
+                <option value="not-attending">Declina respetuosamente</option>
               </select>
-            </div>
+            </div> */}
 
             <div className="flex flex-col gap-1.5">
               <label
@@ -120,6 +174,8 @@ export function RsvpSection() {
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
               </select>
             </div>
 
@@ -142,10 +198,44 @@ export function RsvpSection() {
               type="submit"
               className="mt-2 border border-foreground bg-foreground px-8 py-3 text-xs uppercase tracking-[0.2em] text-background transition-colors hover:bg-transparent hover:text-foreground"
             >
-              Enviar Asistencia
+              Enviar
             </button>
+
           </form>
         )}
+
+        <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+          
+        </p>
+        {/* <h2 className="mt-3 font-serif text-4xl text-foreground md:text-5xl text-balance">
+          ASISTENCIA
+        </h2> */}
+       <div className="mt-8 max-w-xl mx-auto text-center space-y-6">
+
+  <p className="text-base leading-relaxed text-muted-foreground">
+    Tu compañía es nuestro mejor regalo. <br />
+    Si deseas contribuir con nuestro nuevo comienzo, puedes hacerlo aquí:
+  </p>
+
+  <div className="bg-card border border-border rounded-xl p-6 shadow-sm space-y-3">
+    
+    <p className="text-sm uppercase tracking-widest text-muted-foreground">
+      Cuenta de Ahorros
+    </p>
+
+    <p className="text-lg font-medium">
+      Banco Pichincha
+    </p>
+
+    <div className="space-y-1 text-sm">
+      <p><span className="font-medium">Nombre:</span> Daniel Tene</p>
+      <p><span className="font-medium">Cuenta:</span> 2204705173</p>
+      <p><span className="font-medium">CI:</span> 1725142705</p>
+    </div>
+
+  </div>
+
+</div>
       </div>
     </section>
   )

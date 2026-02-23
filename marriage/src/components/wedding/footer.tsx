@@ -11,10 +11,10 @@ export function Footer() {
           <span className="h-px w-8 bg-background/30" />
         </div>
         <p className="mt-4 text-sm text-background/60">
-          Marzo 15, 2026 — San Diego, Quito
+          Marzo 15, 2026 — Quito, Ecuador
         </p>
         <p className="mt-6 text-xs text-background/40">
-          {"We can't wait to celebrate with you."}
+          {"No podemos esperar para celebrar contigo"}
         </p>
       </div>
     </footer>

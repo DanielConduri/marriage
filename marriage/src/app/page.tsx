@@ -13,9 +13,9 @@ export default function WeddingPage() {
       <Navigation />
       <HeroSection />
       <Countdown />
-      <OurStory />
+      {/* <OurStory /> */}
       <DetailsSection />
-      <GallerySection />
+      {/* <GallerySection /> */}
       <RsvpSection />
       <Footer />
     </main>

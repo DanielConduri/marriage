@@ -7,21 +7,21 @@ const details = [
     title: "Ceremonia",
     line1: "Iglesia Nazareno Fuende Vida",
     line2: "Perez Quiñonez oe8-30, Quito Ecuador",
-    line3: "La ceremonia comienza a las 8:30 AM",
+    line3: "La ceremonia comienza a las 9:00 AM",
   },
     {
     icon: Clock,
-    title: "Hora del Brindis",
-    line1: "The Terrace Lounge",
-    line2: "Drinks and hors d'oeuvres",
+    title: "Celebración Especial",
+    line1: "Iglesia Nazareno Fuende Vida",
+    line2: "Música, Palabras y Bendiciones",
     line3: "9:00 AM — 12:00 PM",
   },
 
   {
     icon: Utensils,
     title: "Recepción",
-    line1: "Coliseo de la iglesia ",
-    line2: "Cena y Celebración",
+    line1: "Coliseo de la Iglesia ",
+    line2: "Cena y presentaciones especiales",
     line3: "1:00 PM en adelante",
   },
 ]
@@ -59,14 +59,14 @@ export function DetailsSection() {
         </div>
 
         {/* Venue image */}
-        <div className="mt-14 relative aspect-[21/9] overflow-hidden">
+        {/* <div className="mt-14 relative aspect-[21/9] overflow-hidden">
           <Image
             src="/images/venue.jpg"
             alt="Elegant wedding reception venue with chandeliers and floral centerpieces"
             fill
             className="object-cover"
           />
-        </div>
+        </div> */}
       </div>
     </section>
   )
