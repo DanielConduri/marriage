@@ -4,8 +4,10 @@ import { useState } from "react"
 
 export function RsvpSection() {
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const [cedulaError, setCedulaError] = useState("")
+  const [submitError, setSubmitError] = useState("")
 
   function validarCedulaEcuador(cedula: string) {
   if (!/^\d{10}$/.test(cedula)) return false
@@ -31,12 +33,15 @@ export function RsvpSection() {
   return digitoVerificador === digitos[9]
 }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    //setSubmitted(true)
+    setSubmitError("")
 
     const formData = new FormData(e.currentTarget)
-    const cedula = formData.get("cedula") as string
+    const firstName = (formData.get("firstName") as string)?.trim()
+    const cedula = (formData.get("cedula") as string)?.trim()
+    const guests = Number(formData.get("guests"))
+    const message = ((formData.get("message") as string) || "").trim()
 
     if (!validarCedulaEcuador(cedula)) {
       setCedulaError("La cédula ingresada no es válida")
@@ -44,7 +49,46 @@ export function RsvpSection() {
     }
 
     setCedulaError("")
-    setSubmitted(true)
+
+    try {
+      setIsSubmitting(true)
+
+      const response = await fetch("/api/rsvp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName,
+          cedula,
+          guests,
+          message,
+        }),
+      })
+
+      const result = (await response.json().catch(() => null)) as
+        | { message?: string }
+        | null
+
+      if (!response.ok) {
+        const errorMessage = result?.message || "No se pudo registrar la asistencia"
+
+        if (response.status === 409) {
+          setCedulaError(errorMessage)
+        } else {
+          setSubmitError(errorMessage)
+        }
+
+        return
+      }
+
+      setSubmitted(true)
+      e.currentTarget.reset()
+    } catch {
+      setSubmitError("Error de conexión. Inténtalo de nuevo.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
   
 
@@ -91,7 +135,7 @@ export function RsvpSection() {
               </div>
               <div className="flex flex-col gap-1.5">
                 <label
-                  htmlFor="lastName"
+                  htmlFor="cedula"
                   className="text-xs uppercase tracking-[0.15em] text-muted-foreground"
                 >
                   Cédula
@@ -196,10 +240,17 @@ export function RsvpSection() {
 
             <button
               type="submit"
+              disabled={isSubmitting}
               className="mt-2 border border-foreground bg-foreground px-8 py-3 text-xs uppercase tracking-[0.2em] text-background transition-colors hover:bg-transparent hover:text-foreground"
             >
-              Enviar
+              {isSubmitting ? "Enviando..." : "Enviar"}
             </button>
+
+            {submitError && (
+              <p className="text-sm text-red-500">
+                {submitError}
+              </p>
+            )}
 
           </form>
         )}

@@ -16,6 +16,26 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## PostgreSQL
+
+Para guardar el formulario RSVP necesitas configurar la variable de entorno:
+
+```bash
+DATABASE_URL=postgresql://usuario:password@localhost:5432/tu_base
+```
+
+Puedes copiar `.env.example` a `.env.local` y ajustar el valor:
+
+```bash
+Copy-Item .env.example .env.local
+```
+
+Para producción, ejecuta la migración SQL:
+
+`db/migrations/001_create_rsvp_responses.sql`
+
+El formulario envía datos a `POST /api/rsvp`, valida duplicados por cédula y guarda en la tabla `rsvp_responses`.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

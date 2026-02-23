@@ -1,4 +1,3 @@
-import Image from "next/image"
 import { MapPin, Clock, Utensils } from "lucide-react"
 
 const details = [

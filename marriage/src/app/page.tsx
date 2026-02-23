@@ -1,9 +1,9 @@
 import { Navigation } from "@/components/wedding/navigation"
 import { HeroSection } from "@/components/wedding/hero-section"
 import { Countdown } from "@/components/wedding/countdown"
-import { OurStory } from "@/components/wedding/our-story"
+// import { OurStory } from "@/components/wedding/our-story"
 import { DetailsSection } from "@/components/wedding/details-section"
-import { GallerySection } from "@/components/wedding/gallery-section"
+// import { GallerySection } from "@/components/wedding/gallery-section"
 import { RsvpSection } from "@/components/wedding/rsvp-section"
 import { Footer } from "@/components/wedding/footer"
 
