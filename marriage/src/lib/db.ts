@@ -7,16 +7,10 @@ type GlobalWithPool = typeof globalThis & {
 const globalWithPool = globalThis as GlobalWithPool
 
 function createPool() {
-  const connectionString =
-    process.env.DATABASE_URL ?? process.env.DATABASE_URL_NOT_REQUIRE
+  const connectionString = process.env.DATABASE_URL
 
   if (!connectionString) {
-    const error = new Error(
-      "DATABASE_URL no está configurada (ni DATABASE_URL_NOT_REQUIRE)"
-    ) as Error & { code?: string }
-
-    error.code = "ENV_MISSING"
-    throw error
+    throw new Error("DATABASE_URL no está configurada")
   }
 
   return new Pool({
