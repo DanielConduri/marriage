@@ -123,7 +123,7 @@ export function RsvpSection() {
                   htmlFor="firstName"
                   className="text-xs uppercase tracking-[0.15em] text-muted-foreground"
                 >
-                  Nombre
+                  Nombre y apellido
                 </label>
                 <input
                   id="firstName"
@@ -261,32 +261,47 @@ export function RsvpSection() {
         {/* <h2 className="mt-3 font-serif text-4xl text-foreground md:text-5xl text-balance">
           ASISTENCIA
         </h2> */}
-       <div className="mt-8 max-w-xl mx-auto text-center space-y-6">
+       <div className="mx-auto mt-10 max-w-3xl space-y-6 text-center">
+          <div className="space-y-2">
+            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Regalos</p>
+            <h3 className="font-serif text-2xl text-foreground md:text-3xl">Nuestro nuevo comienzo</h3>
+          </div>
 
-  <p className="text-base leading-relaxed text-muted-foreground">
-    Tu compañía es nuestro mejor regalo. <br />
-    Si deseas contribuir con nuestro nuevo comienzo, puedes hacerlo aquí:
-  </p>
+          <p className="text-base leading-relaxed text-muted-foreground">
+            Tu compañía es nuestro mejor regalo. <br />
+            Si deseas contribuir con nuestro nuevo comienzo, puedes hacerlo aquí:
+          </p>
 
-  <div className="bg-card border border-border rounded-xl p-6 shadow-sm space-y-3">
-    
-    <p className="text-sm uppercase tracking-widest text-muted-foreground">
-      Cuenta de Ahorros
-    </p>
+          <div className="rounded-2xl border border-border bg-background/70 p-4 shadow-sm backdrop-blur-sm md:p-6">
+            <div className="grid items-stretch gap-4 md:grid-cols-2 md:gap-6">
+              <div className="flex h-full flex-col justify-between space-y-4 rounded-xl border border-border bg-card p-6 text-left shadow-md transition-transform duration-300 hover:-translate-y-0.5">
+                <div className="space-y-2">
+                  <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Cuenta de ahorros</p>
+                  <p className="text-xl font-semibold text-foreground">Banco Pichincha</p>
+                </div>
 
-    <p className="text-lg font-medium">
-      Banco Pichincha
-    </p>
+                <div className="space-y-2 text-sm text-foreground/90">
+                  <p><span className="font-medium">Nombre:</span> Daniel Tene</p>
+                  <p><span className="font-medium">Cuenta:</span> 2204705173</p>
+                  <p><span className="font-medium">CI:</span> 1725142705</p>
+                </div>
+              </div>
 
-    <div className="space-y-1 text-sm">
-      <p><span className="font-medium">Nombre:</span> Daniel Tene</p>
-      <p><span className="font-medium">Cuenta:</span> 2204705173</p>
-      <p><span className="font-medium">CI:</span> 1725142705</p>
-    </div>
+              <div className="flex h-full flex-col justify-between space-y-4 rounded-xl border border-border bg-card p-6 text-left shadow-md transition-transform duration-300 hover:-translate-y-0.5">
+                <div className="space-y-2">
+                  <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Cuenta de ahorros</p>
+                  <p className="text-xl font-semibold text-foreground">Banco Pichincha</p>
+                </div>
 
-  </div>
-
-</div>
+                <div className="space-y-2 text-sm text-foreground/90">
+                  <p><span className="font-medium">Nombre:</span> Nelly Hipo</p>
+                  <p><span className="font-medium">Cuenta:</span> 2214249905</p>
+                  <p><span className="font-medium">CI:</span> 0650173354</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   )
