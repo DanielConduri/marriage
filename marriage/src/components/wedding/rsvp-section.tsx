@@ -69,7 +69,7 @@ export function RsvpSection() {
       const result = (await response.json().catch(() => null)) as
         | { message?: string }
         | null
-
+      console.log('RSVP response:', { status: response.status, body: result })
       if (!response.ok) {
         const errorMessage = result?.message || "No se pudo registrar la asistencia"
 

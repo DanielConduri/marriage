@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     const cedula = body.cedula?.trim()
     const guests = Number(body.guests)
     const message = body.message?.trim() || null
-
+    console.log('body payload:', body)
     if (!firstName || !cedula) {
       return NextResponse.json(
         { message: "Nombre y cédula son obligatorios" },
@@ -67,14 +67,14 @@ export async function POST(request: Request) {
       "SELECT id FROM rsvp_responses WHERE cedula = $1 LIMIT 1",
       [cedula]
     )
-
+    console.log('Existing query result:', existing)
     if (existing.rowCount && existing.rowCount > 0) {
       return NextResponse.json(
         { message: "Este usuario ya registró su asistencia" },
         { status: 409 }
       )
     }
-
+    console.log('Inserting new RSVP response:', { firstName, cedula, guests, message })
     await pool.query(
       `INSERT INTO rsvp_responses (first_name, cedula, guests, message)
        VALUES ($1, $2, $3, $4)`,
