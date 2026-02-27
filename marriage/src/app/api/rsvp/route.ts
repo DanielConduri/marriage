@@ -1,11 +1,20 @@
 import { NextResponse } from "next/server"
 import { getPool } from "@/lib/db"
 
+export const runtime = "nodejs"
+
 type RsvpPayload = {
   firstName?: string
   cedula?: string
   guests?: number
   message?: string
+}
+
+type DbErrorLike = {
+  code?: string
+  message?: string
+  detail?: string
+  name?: string
 }
 
 function validarCedulaEcuador(cedula: string) {
@@ -39,7 +48,7 @@ export async function POST(request: Request) {
     const cedula = body.cedula?.trim()
     const guests = Number(body.guests)
     const message = body.message?.trim() || null
-    console.log('body payload:', body)
+
     if (!firstName || !cedula) {
       return NextResponse.json(
         { message: "Nombre y cédula son obligatorios" },
@@ -67,14 +76,14 @@ export async function POST(request: Request) {
       "SELECT id FROM rsvp_responses WHERE cedula = $1 LIMIT 1",
       [cedula]
     )
-    console.log('Existing query result:', existing)
+
     if (existing.rowCount && existing.rowCount > 0) {
       return NextResponse.json(
         { message: "Este usuario ya registró su asistencia" },
         { status: 409 }
       )
     }
-    console.log('Inserting new RSVP response:', { firstName, cedula, guests, message })
+
     await pool.query(
       `INSERT INTO rsvp_responses (first_name, cedula, guests, message)
        VALUES ($1, $2, $3, $4)`,
@@ -86,6 +95,16 @@ export async function POST(request: Request) {
       { status: 201 }
     )
   } catch (error: unknown) {
+    const err = (error ?? {}) as DbErrorLike
+    const code = err.code
+
+    console.error("RSVP API error", {
+      code,
+      name: err.name,
+      message: err.message,
+      detail: err.detail,
+    })
+
     if (
       typeof error === "object" &&
       error !== null &&
@@ -102,10 +121,38 @@ export async function POST(request: Request) {
       typeof error === "object" &&
       error !== null &&
       "code" in error &&
+      error.code === "ENV_MISSING"
+    ) {
+      return NextResponse.json(
+        {
+          message:
+            "Falta configurar la conexión de base de datos en el servidor (DATABASE_URL).",
+          errorCode: "ENV_MISSING",
+        },
+        { status: 500 }
+      )
+    }
+
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
       error.code === "28P01"
     ) {
       return NextResponse.json(
-        { message: "Error de autenticación a la base de datos. Revisa DATABASE_URL." },
+        { message: "Error de autenticación a la base de datos. Revisa DATABASE_URL.", errorCode: "28P01" },
+        { status: 500 }
+      )
+    }
+
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
+      error.code === "3D000"
+    ) {
+      return NextResponse.json(
+        { message: "La base de datos configurada no existe.", errorCode: "3D000" },
         { status: 500 }
       )
     }
@@ -117,13 +164,25 @@ export async function POST(request: Request) {
       error.code === "42P01"
     ) {
       return NextResponse.json(
-        { message: "La tabla rsvp_responses no existe en la base de datos." },
+        { message: "La tabla rsvp_responses no existe en la base de datos.", errorCode: "42P01" },
+        { status: 500 }
+      )
+    }
+
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
+      (error.code === "ECONNREFUSED" || error.code === "ENOTFOUND" || error.code === "ETIMEDOUT")
+    ) {
+      return NextResponse.json(
+        { message: "No se pudo conectar a PostgreSQL. Verifica host, puerto y acceso de red.", errorCode: error.code },
         { status: 500 }
       )
     }
 
     return NextResponse.json(
-      { message: "No se pudo registrar la asistencia" },
+      { message: "No se pudo registrar la asistencia", errorCode: code || "UNKNOWN" },
       { status: 500 }
     )
   }
