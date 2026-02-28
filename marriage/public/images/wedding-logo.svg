@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="14" fill="#111827" />
+  <path d="M32 46.5c-.4 0-.8-.1-1.2-.4C17.4 35.9 12 29.8 12 22.9c0-5.2 4.2-9.4 9.4-9.4 4 0 7.6 2.5 9 6.2a1.8 1.8 0 0 0 3.2 0c1.4-3.7 5-6.2 9-6.2 5.2 0 9.4 4.2 9.4 9.4 0 6.9-5.4 13-18.8 23.2-.4.3-.8.4-1.2.4Z" fill="#f9d5e5" />
+  <text x="32" y="37" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#111827">D&N</text>
+</svg>

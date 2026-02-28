@@ -53,6 +53,14 @@ export function RsvpSection() {
     try {
       setIsSubmitting(true)
 
+      const test = await fetch(`/api/user/${encodeURIComponent(cedula)}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log('Test API response:', await test.json().catch(() => null))
+
       const response = await fetch("/api/rsvp", {
         method: "POST",
         headers: {

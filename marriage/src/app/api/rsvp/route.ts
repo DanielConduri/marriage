@@ -75,12 +75,12 @@ export async function POST(request: Request) {
       )
     }
     console.log('Inserting new RSVP response:', { firstName, cedula, guests, message })
-    await pool.query(
+    const result = await pool.query(
       `INSERT INTO rsvp_responses (first_name, cedula, guests, message)
        VALUES ($1, $2, $3, $4)`,
       [firstName, cedula, guests, message]
     )
-
+    console.log('Insert result:', result)
     return NextResponse.json(
       { message: "Asistencia registrada con éxito" },
       { status: 201 }
@@ -121,7 +121,7 @@ export async function POST(request: Request) {
         { status: 500 }
       )
     }
-
+    console.log('ERROR', error)
     return NextResponse.json(
       { message: "No se pudo registrar la asistencia" },
       { status: 500 }

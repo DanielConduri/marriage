@@ -17,6 +17,11 @@ const lato = Lato({
 export const metadata: Metadata = {
   title: 'Daniel & Nelly — Matrimonio',
   description: 'Join us in celebrating the marriage of Emma & James. Save the date and RSVP to our beautiful wedding celebration.',
+  icons: {
+    icon: '/images/wedding-logo.svg',
+    shortcut: '/images/wedding-logo.svg',
+    apple: '/images/wedding-logo.svg',
+  },
 }
 
 export default function RootLayout({
