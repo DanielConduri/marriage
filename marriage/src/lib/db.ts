@@ -13,9 +13,13 @@ function createPool() {
     throw new Error("DATABASE_URL no está configurada")
   }
 
+  const sslFromEnv = process.env.DATABASE_SSL
+  const hasSslModeRequire = /[?&]sslmode=require/i.test(connectionString)
+  const enableSsl = sslFromEnv === "true" || hasSslModeRequire
+
   return new Pool({
     connectionString,
-    ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+    ssl: enableSsl ? { rejectUnauthorized: false } : false,
   })
 }
 
