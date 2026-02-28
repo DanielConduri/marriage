@@ -16,7 +16,7 @@ export async function GET(_: Request, { params }: Params) {
 
   const apiBaseUrl = (process.env.BACKEND_API_BASE_URL ?? "http://localhost:8000").replace(/\/$/, "")
   const upstreamUrl = `${apiBaseUrl}/apiv3/users/${encodeURIComponent(cedula)}`
-
+  console.log(apiBaseUrl, upstreamUrl)
   try {
     const upstream = await fetch(upstreamUrl, {
       method: "GET",
@@ -43,13 +43,13 @@ export async function POST(request: Request, { params }: Params) {
   if (!cedula) {
     return NextResponse.json({ message: "Cédula requerida" }, { status: 400 })
   }
-  let baseUrl  = process.env.NODE_ENV === "development" 
+  const baseUrl  = process.env.NODE_ENV === "development" 
     ? "http://localhost:8000"
     : process.env.BACKEND_API_BASE_URL ?? "https://store.pruebasinventario.com"
   
   console.log('baseUrl', baseUrl)
   console.log('Original BACKEND_API_BASE_URL:', baseUrl)
-  const apiBaseUrl = (process.env.BACKEND_API_BASE_URL ?? "http://localhost:8000").replace(/\/$/, "")
+  const apiBaseUrl = baseUrl.replace(/\/$/, "")
   const upstreamUrl = `${apiBaseUrl}/apiv3/users`
   console.log('upstreamUrl:', upstreamUrl)
   let payload: unknown = null
