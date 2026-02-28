@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server"
 import { getPool } from "@/lib/db"
 
+export const runtime = "nodejs"
+
 type RsvpPayload = {
   firstName?: string
   cedula?: string
@@ -39,7 +41,6 @@ export async function POST(request: Request) {
     const cedula = body.cedula?.trim()
     const guests = Number(body.guests)
     const message = body.message?.trim() || null
-    console.log(' payload:', body)
     if (!firstName || !cedula) {
       return NextResponse.json(
         { message: "Nombre y cédula son obligatorios" },
@@ -62,30 +63,29 @@ export async function POST(request: Request) {
     }
 
     const pool = getPool()
-    console.log('pool', pool)
     const existing = await pool.query(
       "SELECT id FROM rsvp_responses WHERE cedula = $1 LIMIT 1",
       [cedula]
     )
-    console.log('Existing query result:', existing)
     if (existing.rowCount && existing.rowCount > 0) {
       return NextResponse.json(
         { message: "Este usuario ya registró su asistencia" },
         { status: 409 }
       )
     }
-    console.log('Inserting new RSVP response:', { firstName, cedula, guests, message })
-    const result = await pool.query(
+    await pool.query(
       `INSERT INTO rsvp_responses (first_name, cedula, guests, message)
        VALUES ($1, $2, $3, $4)`,
       [firstName, cedula, guests, message]
     )
-    console.log('Insert result:', result)
+
     return NextResponse.json(
       { message: "Asistencia registrada con éxito" },
       { status: 201 }
     )
   } catch (error: unknown) {
+    const dbError = error as { code?: string; message?: string }
+
     if (
       typeof error === "object" &&
       error !== null &&
@@ -121,7 +121,26 @@ export async function POST(request: Request) {
         { status: 500 }
       )
     }
-    console.log('ERROR', error)
+
+    if (
+      dbError.code === "ECONNREFUSED" ||
+      dbError.code === "ENOTFOUND" ||
+      dbError.code === "ETIMEDOUT"
+    ) {
+      return NextResponse.json(
+        { message: "No se pudo conectar al servidor de base de datos desde producción." },
+        { status: 500 }
+      )
+    }
+    
+    if (dbError.message?.includes("DATABASE_URL no está configurada")) {
+      return NextResponse.json(
+        { message: "DATABASE_URL no está configurada en producción." },
+        { status: 500 }
+      )
+    }
+
+    console.error("RSVP API error", { code: dbError.code, message: dbError.message })
     return NextResponse.json(
       { message: "No se pudo registrar la asistencia" },
       { status: 500 }
