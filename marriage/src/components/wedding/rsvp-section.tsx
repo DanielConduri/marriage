@@ -52,8 +52,7 @@ export function RsvpSection() {
 
     try {
       setIsSubmitting(true)
-
-      const test = await fetch(`/api/user/${encodeURIComponent(cedula)}`, {
+ const test = await fetch(`/api/user/${encodeURIComponent(cedula)}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -88,6 +87,50 @@ export function RsvpSection() {
         }
 
         return
+
+
+      // try {
+      //   const test = await fetch(`/api/user/${encodeURIComponent(cedula)}`, {
+      //     method: "GET",
+      //   })
+      //   console.log('Test API response:', await test.json().catch(() => null))
+      // } catch (error) {
+      //   console.warn('Test API request failed:', error)
+      // }
+
+
+      // const response = await fetch(`/api/user/${encodeURIComponent(cedula)}`, {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //     firstName,
+      //     cedula,
+      //     guests,
+      //     message,
+      //   }),
+      // })
+
+
+      // const result = (await response.json().catch(() => null)) as
+      //   | { message?: string }
+      //   | null
+      // console.log('RSVP response:', { status: response.status, body: result })
+      // if (!response.ok) {
+      //   const duplicateMessage = "Este usuario ya registró su asistencia"
+      //   const isAlreadyRegistered = /ya\s+se\s+encuentra\s+registrado|ya\s+registró\s+su\s+asistencia/i.test(result?.message ?? "")
+      //   const errorMessage = isAlreadyRegistered
+      //     ? duplicateMessage
+      //     : (result?.message || "No se pudo registrar la asistencia")
+
+      //   if (response.status === 409) {
+      //     setCedulaError(errorMessage)
+      //   } else {
+      //     setSubmitError(errorMessage)
+      //   }
+
+      //   return
       }
 
       setSubmitted(true)
@@ -271,7 +314,7 @@ export function RsvpSection() {
         </h2> */}
        <div className="mx-auto mt-10 max-w-3xl space-y-6 text-center">
           <div className="space-y-2">
-            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Regalos</p>
+            {/* <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Regalos</p> */}
             <h3 className="font-serif text-2xl text-foreground md:text-3xl">Nuestro nuevo comienzo</h3>
           </div>
 
