@@ -319,7 +319,8 @@ export function RsvpSection() {
           </div>
 
           <p className="text-base leading-relaxed text-muted-foreground">
-            Tu compañía es nuestro mejor regalo. <br />
+            Sabemos que no siempre es posible estar presentes físicamente,
+            pero agradecemos de corazón tu cariño y buenos deseos. <br />
             Si deseas contribuir con nuestro nuevo comienzo, puedes hacerlo aquí:
           </p>
 

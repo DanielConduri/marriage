@@ -13,7 +13,7 @@ const details = [
     title: "Celebración Especial",
     line1: "Iglesia Nazareno Fuente de Vida",
     line2: "Música, Palabras y Bendiciones",
-    line3: "9:00 AM — 12:00 PM",
+    line3: "9:00 AM — 11:30 PM",
   },
 
   {
@@ -21,7 +21,7 @@ const details = [
     title: "Recepción",
     line1: "Coliseo de la Iglesia ",
     line2: "Cena y presentaciones especiales",
-    line3: "12:30 PM en adelante",
+    line3: "12:00 PM en adelante",
   },
 ]
 
