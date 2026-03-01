@@ -324,7 +324,7 @@ export function RsvpSection() {
             Si deseas contribuir con nuestro nuevo comienzo, puedes hacerlo aquí:
           </p>
 
-          <div className="rounded-2xl border border-border bg-background/70 p-4 shadow-sm backdrop-blur-sm md:p-6">
+          <div className="rounded-2xl p-4 shadow-sm backdrop-blur-sm md:p-6">
             <div className="grid items-stretch gap-4 md:grid-cols-2 md:gap-6">
               <div className="flex h-full flex-col justify-between space-y-4 rounded-xl border border-border bg-card p-6 text-left shadow-md transition-transform duration-300 hover:-translate-y-0.5">
                 <div className="space-y-2">
