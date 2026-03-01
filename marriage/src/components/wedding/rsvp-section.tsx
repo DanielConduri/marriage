@@ -52,7 +52,7 @@ export function RsvpSection() {
 
     try {
       setIsSubmitting(true)
- const test = await fetch(`/api/user/${encodeURIComponent(cedula)}`, {
+      const test = await fetch(`/api/user/${encodeURIComponent(cedula)}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

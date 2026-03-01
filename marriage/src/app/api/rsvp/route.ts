@@ -10,6 +10,15 @@ type RsvpPayload = {
   message?: string
 }
 
+type RsvpRow = {
+  id: number
+  first_name: string
+  cedula: string
+  guests: number
+  message: string | null
+  created_at: string
+}
+
 function validarCedulaEcuador(cedula: string) {
   if (!/^\d{10}$/.test(cedula)) return false
 
@@ -32,6 +41,92 @@ function validarCedulaEcuador(cedula: string) {
   const digitoVerificador = (10 - (suma % 10)) % 10
 
   return digitoVerificador === digitos[9]
+}
+
+export async function GET(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url)
+    const cedula = searchParams.get("cedula")?.trim()
+
+    const pool = getPool()
+
+    if (cedula) {
+      if (!/^\d{1,10}$/.test(cedula)) {
+        return NextResponse.json(
+          { message: "La cédula debe contener solo números" },
+          { status: 400 }
+        )
+      }
+
+      const rows = await pool.query<RsvpRow>(
+        `SELECT id, first_name, cedula, guests, message, created_at
+         FROM rsvp_responses
+         WHERE cedula LIKE $1
+         ORDER BY id DESC`,
+        [`%${cedula}%`]
+      )
+
+      return NextResponse.json({ data: rows.rows }, { status: 200 })
+    }
+
+    const rows = await pool.query<RsvpRow>(
+      `SELECT id, first_name, cedula, guests, message, created_at
+       FROM rsvp_responses
+       ORDER BY id DESC`
+    )
+
+    return NextResponse.json({ data: rows.rows }, { status: 200 })
+  } catch (error: unknown) {
+    const dbError = error as { code?: string; message?: string }
+
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
+      error.code === "28P01"
+    ) {
+      return NextResponse.json(
+        { message: "Error de autenticación a la base de datos. Revisa DATABASE_URL." },
+        { status: 500 }
+      )
+    }
+
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
+      error.code === "42P01"
+    ) {
+      return NextResponse.json(
+        { message: "La tabla rsvp_responses no existe en la base de datos." },
+        { status: 500 }
+      )
+    }
+
+    if (
+      dbError.code === "ECONNREFUSED" ||
+      dbError.code === "ENOTFOUND" ||
+      dbError.code === "ETIMEDOUT"
+    ) {
+      return NextResponse.json(
+        { message: "No se pudo conectar al servidor de base de datos desde producción." },
+        { status: 500 }
+      )
+    }
+
+    if (dbError.message?.includes("DATABASE_URL no está configurada")) {
+      return NextResponse.json(
+        { message: "DATABASE_URL no está configurada en producción." },
+        { status: 500 }
+      )
+    }
+
+    console.error("RSVP API GET error", { code: dbError.code, message: dbError.message })
+    return NextResponse.json(
+      { message: "No se pudo obtener la lista de asistencias" },
+      { status: 500 }
+    )
+  }
 }
 
 export async function POST(request: Request) {
@@ -146,4 +241,5 @@ export async function POST(request: Request) {
       { status: 500 }
     )
   }
+  
 }

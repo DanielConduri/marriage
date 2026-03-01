@@ -6,14 +6,14 @@ const details = [
     title: "Ceremonia",
     line1: "Iglesia Nazareno Fuente de Vida",
     line2: "Perez Quiñonez oe8-30, Quito Ecuador",
-    line3: "La ceremonia comienza a las 9:00 AM",
+    line3: "La ceremonia comienza a las 8:30 AM",
   },
     {
     icon: Clock,
     title: "Celebración Especial",
     line1: "Iglesia Nazareno Fuente de Vida",
     line2: "Música, Palabras y Bendiciones",
-    line3: "9:30 AM — 12:00 PM",
+    line3: "9:00 AM — 12:00 PM",
   },
 
   {
