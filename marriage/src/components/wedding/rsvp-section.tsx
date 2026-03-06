@@ -153,7 +153,7 @@ export function RsvpSection() {
           ASISTENCIA
         </h2>
         <p className="mt-4 leading-relaxed text-muted-foreground">
-          Por favor responda antes del 5 de marzo de 2026. Sería un honor para nosotros celebrar este día especial con usted.
+          Por favor responda antes del 10 de marzo de 2026. Sería un honor para nosotros celebrar este día especial con usted.
         </p>
 
         {submitted ? (
@@ -314,7 +314,7 @@ export function RsvpSection() {
         </h2> */}
        <div className="mx-auto mt-10 max-w-3xl space-y-6 text-center">
           <div className="space-y-2">
-            {/* <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Regalos</p> */}
+             <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Regalos</p>
             <h3 className="font-serif text-2xl text-foreground md:text-3xl">Nuestro nuevo comienzo</h3>
           </div>
 
@@ -354,6 +354,7 @@ export function RsvpSection() {
             </div>
           </div>
         </div>
+
       </div>
     </section>
   )
